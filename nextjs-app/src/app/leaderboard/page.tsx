@@ -27,7 +27,7 @@ const LeaderboardPage = () => {
 
   const fetchLeaderboard = async () => {
     try {
-      const response = await fetch('http://localhost:8000/leaderboard');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leaderboard`);
       const data = await response.json();
 
       if (response.ok) {

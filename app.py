@@ -5,13 +5,15 @@ import pandas as pd
 import os
 import data
 import game_logic
-# from datetime import datetime # No longer needed here as it's in game_logic.py
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
 # Configure CORS
 origins = [
-    "http://localhost:3000",  # Allow your Next.js frontend
+    os.getenv("FRONTEND_URL", "http://localhost:3000"), # Allow your Next.js frontend
     "http://127.0.0.1:3000",
 ]
 
@@ -45,6 +47,8 @@ class LeaderboardEntry(BaseModel):
     username: str
     score: int
     date: str
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 # Initialize CSV files if they don't exist
 def initialize_csv_files():
@@ -87,7 +91,7 @@ async def login_user(user_data: UserLogin):
     password = user_data.password.strip()
 
     if not username or not password:
-        raise HTTPException(status_code=400, detail='Username and password are required')
+        raise HTTPException(status_code=400, detail='Tên người dùng và mật khẩu là bắt buộc.')
 
     users_df = data.read_users()
     user = users_df[(users_df['username'].str.lower() == username.lower()) & (users_df['password'] == password)]
@@ -101,7 +105,7 @@ async def login_user(user_data: UserLogin):
 async def start_game_session(game_start_data: GameStart):
     username = game_start_data.username.strip()
     if not username:
-        raise HTTPException(status_code=400, detail='Username is required to start a game')
+        raise HTTPException(status_code=400, detail='Tên người dùng là bắt buộc để bắt đầu trò chơi.')
 
     questions = game_logic.get_20_random_questions()
     if not questions:
@@ -113,13 +117,13 @@ async def start_game_session(game_start_data: GameStart):
     }
 
     first_question = questions[0]
-    return {'message': 'Game session started', 'question': first_question}
+    return {'message': 'Phiên chơi game đã được bắt đầu.', 'question': first_question}
 
 @app.get('/questions')
 async def get_questions():
     questions_df = data.read_questions()
     if questions_df.empty:
-        raise HTTPException(status_code=404, detail='No questions available')
+        raise HTTPException(status_code=404, detail='Không có câu hỏi nào có sẵn.')
     return questions_df.to_dict(orient='records')
 
 @app.post('/leaderboard')
@@ -128,9 +132,9 @@ async def update_leaderboard(entry: LeaderboardEntry):
     score = entry.score
 
     if not username or score is None:
-        raise HTTPException(status_code=400, detail='Username and score are required')
+        raise HTTPException(status_code=400, detail='Tên người dùng và điểm số là bắt buộc.')
 
-    # Sử dụng hàm update_player_score từ data.py
+    # Sử dụng hàm update_player_score từ game_logic.py
     result = game_logic.update_player_score(username, score)
     return result
 
@@ -138,7 +142,7 @@ async def update_leaderboard(entry: LeaderboardEntry):
 async def get_leaderboard():
     leaderboard_df = data.read_leaderboard()
     if leaderboard_df.empty:
-        raise HTTPException(status_code=404, detail='Leaderboard is empty')
+        raise HTTPException(status_code=404, detail='Bảng xếp hạng đang trống.')
     leaderboard_df = leaderboard_df.sort_values(by='score', ascending=False)
     return leaderboard_df.to_dict(orient='records')
 
@@ -150,7 +154,7 @@ async def submit_answer(answer_data: SubmitAnswer):
     username = answer_data.username # Lấy username từ request
 
     if not username:
-        raise HTTPException(status_code=400, detail='Username is required for game session')
+        raise HTTPException(status_code=400, detail='Tên người dùng là bắt buộc để bắt đầu trò chơi.')
 
     if username not in game_logic.active_game_sessions:
         raise HTTPException(status_code=400, detail='Không tìm thấy phiên chơi game cho người dùng này. Vui lòng bắt đầu lại.')
@@ -159,7 +163,7 @@ async def submit_answer(answer_data: SubmitAnswer):
     current_question_from_session = session['questions'][session['current_index']]
 
     if current_question_from_session['id'] != question_id:
-        raise HTTPException(status_code=400, detail='Question ID mismatch for current session')
+        raise HTTPException(status_code=400, detail='ID câu hỏi không khớp với phiên chơi hiện tại.')
 
     is_correct = game_logic.check_answer(question_id, submitted_answer)
     new_score = game_logic.calculate_score(current_score, is_correct)

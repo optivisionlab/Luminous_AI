@@ -63,7 +63,7 @@ const QuestionPage = () => {
     setMessage('Đang tải câu hỏi...');
     setSelectedAnswer(null);
     try {
-      const response = await fetch('http://localhost:8000/game/start', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/game/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const QuestionPage = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:8000/game/answer', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/game/answer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const QuestionPage = () => {
     setMessage('Đang kết thúc lượt chơi và lưu điểm...');
 
     try {
-      const response = await fetch('http://localhost:8000/leaderboard', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leaderboard`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
