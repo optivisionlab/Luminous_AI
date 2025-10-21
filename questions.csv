@@ -1,0 +1,68 @@
+id,question,option_a,option_b,option_c,option_d,correct_answer
+0,Thủ đô của Nhật Bản là gì?,Tokyo,Kyoto,Osaka,Sapporo,A
+1,Ai là tác giả của 'Truyện Kiều'?,Nguyễn Du,Hồ Xuân Hương,Nguyễn Trãi,Lê Quý Đôn,A
+2,"Năm 1945, Việt Nam giành độc lập vào ngày nào?",19 tháng 8,2 tháng 9,30 tháng 4,7 tháng 5,B
+3,Dãy núi nào được mệnh danh là 'nóc nhà thế giới'?,Dãy Andes,Dãy Rockies,Dãy Himalaya,Dãy Alps,C
+4,Đơn vị tiền tệ của Hàn Quốc là gì?,Yên,Won,Nhân dân tệ,Bạt,B
+5,Ai là người phát minh ra điện thoại?,Thomas Edison,Alexander Graham Bell,Nikola Tesla,Guglielmo Marconi,B
+6,Hành tinh nào có vành đai đẹp nhất?,Sao Mộc,Sao Thổ,Sao Thiên Vương,Sao Hải Vương,B
+7,Loài hoa nào là biểu tượng của Việt Nam?,Hoa hồng,Hoa sen,Hoa mai,Hoa đào,B
+8,Thành phố nào là kinh đô cũ của Việt Nam?,Hà Nội,Huế,Đà Nẵng,Thành phố Hồ Chí Minh,B
+9,"Trong bóng đá, có bao nhiêu cầu thủ trên sân của một đội?",9,10,11,12,C
+10,Loại chất lỏng nào có độ pH = 7?,Nước chanh,Nước xà phòng,Nước tinh khiết,Axit clohydric,C
+11,Ai là người đầu tiên bay vào vũ trụ?,Neil Armstrong,Yuri Gagarin,Alan Shepard,John Glenn,B
+12,Động vật nào là động vật trên cạn lớn nhất?,Hổ,Voi,Tê giác,Hươu cao cổ,B
+13,"Món ăn nào của Ý được làm từ bột mì, trứng và phô mai?",Pizza,Lasagna,Pasta Carbonara,Risotto,C
+14,Quốc gia nào có kim tự tháp Giza?,Hy Lạp,Ý,Ai Cập,Mexico,C
+15,Đại dương lớn nhất thế giới là gì?,Đại Tây Dương,Ấn Độ Dương,Bắc Băng Dương,Thái Bình Dương,D
+16,Tác giả của Romeo và Juliet là ai?,Charles Dickens,William Shakespeare,Jane Austen,Mark Twain,B
+17,Nguyên tố hóa học nào có ký hiệu O?,Vàng,Oxy,Bạc,Sắt,B
+18,Loài vật nào nổi tiếng với việc xây đập?,Rái cá,Hải ly,Cá heo,Gấu,B
+19,Núi cao nhất thế giới là gì?,Núi Kilimanjaro,Núi Everest,Núi Fuji,Núi Alps,B
+20,Thủ đô của Pháp là gì?,Berlin,Madrid,Paris,Rome,C
+21,Mặt Trời là một ngôi sao hay hành tinh?,Ngôi sao,Hành tinh,Cả hai,Không phải cả hai,A
+22,Trái cây nào có nhiều vitamin C nhất?,Táo,Chuối,Cam,Nho,C
+23,Ai là người đầu tiên đặt chân lên Mặt Trăng?,Buzz Aldrin,Neil Armstrong,Michael Collins,Yuri Gagarin,B
+24,Quốc gia nào có biểu tượng là cây phong?,Mỹ,Canada,Úc,New Zealand,B
+25,Lục địa nhỏ nhất thế giới là gì?,Châu Á,Châu Phi,Châu Âu,Châu Úc,D
+26,Bộ phim Titanic dựa trên sự kiện có thật không?,Có,Không,Một phần,Không rõ,A
+27,Màu nào được tạo ra khi trộn màu đỏ và màu xanh dương?,Xanh lá cây,Tím,Vàng,Cam,B
+28,Công ty nào sản xuất iPhone?,Samsung,Google,Apple,Microsoft,C
+29,Thành phố nào được gọi là 'Thành phố không ngủ'?,London,Paris,New York,Tokyo,C
+30,Loại động vật nào là động vật có vú biết bay duy nhất?,Chim,Dơi,Côn trùng,Bướm,B
+31,Môn học nào nghiên cứu về các vì sao và vũ trụ?,Sinh học,Địa lý,Thiên văn học,Hóa học,C
+32,Ai là tác giả của Harry Potter?,Stephen King,J.K. Rowling,George R.R. Martin,Tolkien,B
+33,Quốc gia nào nổi tiếng với Pizza và Mì ống?,Pháp,Ý,Tây Ban Nha,Đức,B
+34,Kim loại nào lỏng ở nhiệt độ phòng?,Vàng,Bạc,Thủy ngân,Đồng,C
+35,Vị tổng thống đầu tiên của Hoa Kỳ là ai?,Abraham Lincoln,George Washington,Thomas Jefferson,John F. Kennedy,B
+36,Cây nào cho ra quả cà phê?,Cây táo,Cây cà phê,Cây cam,Cây dừa,B
+37,Thành phố nào có Tháp Eiffel?,London,Rome,Paris,Berlin,C
+38,Ai là người vẽ bức tranh Mona Lisa?,Vincent van Gogh,Pablo Picasso,Leonardo da Vinci,Claude Monet,C
+39,Trái Đất mất bao lâu để quay một vòng quanh Mặt Trời?,24 giờ,7 ngày,365 ngày,30 ngày,C
+40,Động vật nào là chúa tể rừng xanh?,Hổ,Sư tử,Gấu,Voi,B
+41,Môn võ thuật nào có nguồn gốc từ Hàn Quốc?,Karate,Judo,Taekwondo,Kung Fu,C
+42,Thành phố nào là thủ đô của Nhật Bản?,Kyoto,Osaka,Tokyo,Sapporo,C
+43,Loại nhạc cụ nào có dây và được kéo bằng vĩ?,Đàn piano,Đàn ghita,Đàn violin,Kèn saxophone,C
+44,Hành tinh nào được biết đến với Vành đai lớn màu đỏ?,Sao Thổ,Sao Mộc,Sao Hỏa,Sao Thiên Vương,B
+45,Ai là người viết vở kịch Hamlet?,William Shakespeare,Oscar Wilde,George Bernard Shaw,Arthur Miller,A
+46,Quốc gia nào có nhiều múi giờ nhất?,Nga,Mỹ,Pháp,Trung Quốc,C
+47,"Món ăn nào là đặc sản của Nhật Bản, được làm từ cơm và cá sống?",Kimchi,Sushi,Pad Thai,Curry,B
+48,Khoa học nào nghiên cứu về các loài thực vật?,Động vật học,Thực vật học,Thiên văn học,Địa chất học,B
+49,Công ty nào sản xuất ô tô Tesla?,Ford,Toyota,Tesla,BMW,C
+50,Thành phố nào có Tượng Nữ thần Tự do?,Los Angeles,Chicago,New York,Miami,C
+51,Loại vật nuôi nào nổi tiếng với tiếng kêu 'meo meo'?,Chó,Mèo,Chim,Cá,B
+52,Ai là người viết bài hát 'Imagine'?,Paul McCartney,John Lennon,George Harrison,Ringo Starr,B
+53,Quốc gia nào có Vạn Lý Trường Thành?,Ấn Độ,Trung Quốc,Mông Cổ,Nga,B
+54,Môn thể thao nào sử dụng một quả bóng tròn và lưới?,Bóng rổ,Bóng đá,Bóng chuyền,Quần vợt,C
+55,Thành phố nào được biết đến với tên gọi 'Thành phố tình yêu'?,Venice,Paris,Rome,Barcelona,B
+56,Ai là người phát minh ra điện thoại?,Benjamin Franklin,Alexander Graham Bell,Thomas Edison,Guglielmo Marconi,B
+57,Quốc gia nào có nhiều hồ nhất thế giới?,Mỹ,Canada,Thụy Điển,Nga,B
+58,"Món ăn nào của Ý được làm từ bột mì, trứng và phô mai?",Pizza,Lasagna,Pasta Carbonara,Risotto,C
+59,Động vật nào là động vật có vú dưới nước lớn nhất?,Cá voi xanh,Cá mập,Hải cẩu,Cá heo,A
+60,Thành phố nào là thủ đô của Úc?,Sydney,Melbourne,Canberra,Perth,C
+61,Bộ phận nào của thực vật thực hiện quá trình quang hợp?,Rễ,Thân,Lá,Hoa,C
+62,Loại hình nghệ thuật nào sử dụng đất sét để tạo hình?,Hội họa,Điêu khắc,Nhiếp ảnh,Kiến trúc,B
+63,Vùng đất nào được gọi là 'Lục địa trắng'?,Châu Á,Châu Âu,Châu Nam Cực,Châu Phi,C
+64,Ai là người sáng lập Microsoft?,Steve Jobs,Bill Gates,Mark Zuckerberg,Elon Musk,B
+65,Nhạc cụ nào có bàn phím và các phím màu đen trắng?,Đàn ghita,Đàn violin,Đàn piano,Kèn trumpet,C
+66,Thành phố nào nổi tiếng với Cầu Cổng Vàng (Golden Gate Bridge)?,Seattle,San Francisco,Los Angeles,San Diego,B
