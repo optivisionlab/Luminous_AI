@@ -56,6 +56,15 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 async def home():
     return {'message': 'Welcome to Who Wants to be a Millionaire AI Game (FastAPI)!'}
 
+@app.get('/health/mongodb')
+async def check_mongodb_connection():
+    try:
+        # The ping command is cheap and does not require auth.
+        db.command('ping')
+        return {"status": "ok", "message": "Kết nối MongoDB thành công!"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Lỗi kết nối MongoDB: {e}")
+
 @app.post('/register')
 async def register_user(user_data: UserRegister):
     username = user_data.username.strip()
