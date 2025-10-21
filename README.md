@@ -24,7 +24,7 @@
 
 1.  **Di chuyển đến thư mục gốc của dự án:**
     ```bash
-    cd /u01/manhquang/Luminous_AI
+    cd Luminous_AI
     ```
 
 2.  **Cài đặt các thư viện Python cần thiết:**
@@ -38,7 +38,7 @@
 
 1.  **Di chuyển đến thư mục frontend:**
     ```bash
-    cd /u01/manhquang/Luminous_AI/nextjs-app
+    cd Luminous_AI/nextjs-app
     ```
 
 2.  **Cài đặt các gói Node.js:**
@@ -52,7 +52,7 @@
 
 ### 1. Chạy Backend Server (FastAPI)
 
-Trong terminal, từ thư mục gốc của dự án (`/u01/manhquang/Luminous_AI`), chạy lệnh:
+Trong terminal, từ thư mục gốc của dự án (`Luminous_AI`), chạy lệnh:
 
 ```bash
 uvicorn app:app --reload
