@@ -29,7 +29,8 @@ const LoginPage = () => {
         localStorage.setItem('username', username); // Store username for later use
         router.push('/question'); // Redirect to question page on successful login
       } else {
-        setMessage(data.detail || 'Đăng nhập thất bại');
+        // Ensure message is a string. If data.detail is an object (e.g., Pydantic error), stringify it.
+        setMessage(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail || 'Đăng nhập thất bại'));
       }
     } catch (error) {
       console.error('Error during login:', error);

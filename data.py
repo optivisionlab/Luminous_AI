@@ -1,31 +1,43 @@
-import pandas as pd
-import os
+from database import db
 from datetime import datetime
 
-USERS_FILE = 'users.csv'
-QUESTIONS_FILE = 'questions.csv'
-LEADERBOARD_FILE = 'leaderboard.csv'
-
 def read_users():
-    if os.path.exists(USERS_FILE):
-        return pd.read_csv(USERS_FILE)
-    return pd.DataFrame(columns=['username', 'password'])
+    return list(db.users.find({}))
 
-def write_users(df):
-    df.to_csv(USERS_FILE, index=False)
+def write_users(user_data):
+    db.users.insert_one(user_data)
+
+def find_user(username: str):
+    return db.users.find_one({"username": username})
 
 def read_questions():
-    if os.path.exists(QUESTIONS_FILE):
-        return pd.read_csv(QUESTIONS_FILE)
-    return pd.DataFrame(columns=['id', 'question', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer'])
+    # Convert ObjectId to string for JSON serialization
+    questions = []
+    for q in db.questions.find({}):
+        q['_id'] = str(q['_id'])
+        questions.append(q)
+    return questions
 
-def write_questions(df):
-    df.to_csv(QUESTIONS_FILE, index=False)
+def write_questions(question_data):
+    db.questions.insert_one(question_data)
 
 def read_leaderboard():
-    if os.path.exists(LEADERBOARD_FILE):
-        return pd.read_csv(LEADERBOARD_FILE)
-    return pd.DataFrame(columns=['username', 'score', 'date'])
+    # Convert ObjectId to string for JSON serialization
+    leaderboard = []
+    for entry in db.leaderboard.find({}).sort("score", -1):
+        entry['_id'] = str(entry['_id'])
+        leaderboard.append(entry)
+    return leaderboard
 
-def write_leaderboard(df):
-    df.to_csv(LEADERBOARD_FILE, index=False)
+def update_leaderboard_entry(username: str, score: int):
+    # Find existing entry or create a new one
+    existing_entry = db.leaderboard.find_one({"username": username})
+    if existing_entry:
+        if score > existing_entry['score']:
+            db.leaderboard.update_one({"username": username}, {"$set": {"score": score, "date": datetime.now().isoformat()}})
+            return {"message": f"Điểm của {username} đã được cập nhật thành {score}"}
+        else:
+            return {"message": f"Điểm hiện tại của {username} là {existing_entry['score']}, không cần cập nhật."}
+    else:
+        db.leaderboard.insert_one({"username": username, "score": score, "date": datetime.now().isoformat()})
+        return {"message": f"Người chơi {username} với điểm số {score} đã được thêm vào bảng xếp hạng."}

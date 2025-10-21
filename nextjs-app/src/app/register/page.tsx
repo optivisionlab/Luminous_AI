@@ -28,7 +28,8 @@ const RegisterPage = () => {
         setMessage(data.message);
         router.push('/login'); // Redirect to login page on successful registration
       } else {
-        setMessage(data.detail || 'Đăng ký thất bại');
+        // Ensure message is a string. If data.detail is an object (e.g., Pydantic error), stringify it.
+        setMessage(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail || 'Đăng ký thất bại'));
       }
     } catch (error) {
       console.error('Error during registration:', error);

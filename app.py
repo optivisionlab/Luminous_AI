@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import pandas as pd
 import os
 import data
 import game_logic
 from dotenv import load_dotenv
+from database import db # Import db from new database.py
 
 load_dotenv()
 
@@ -35,7 +35,7 @@ class UserLogin(BaseModel):
     password: str
 
 class SubmitAnswer(BaseModel):
-    question_id: int
+    question_id: str # Changed from int to str
     answer: str
     current_score: int = 0
     username: str # Thêm trường username
@@ -49,17 +49,6 @@ class LeaderboardEntry(BaseModel):
     date: str
 
 BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
-
-# Initialize CSV files if they don't exist
-def initialize_csv_files():
-    if not os.path.exists(data.USERS_FILE):
-        pd.DataFrame(columns=['username', 'password']).to_csv(data.USERS_FILE, index=False)
-    if not os.path.exists(data.QUESTIONS_FILE):
-        pd.DataFrame(columns=['id', 'question', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer']).to_csv(data.QUESTIONS_FILE, index=False)
-    if not os.path.exists(data.LEADERBOARD_FILE):
-        pd.DataFrame(columns=['username', 'score', 'date']).to_csv(data.LEADERBOARD_FILE, index=False)
-
-initialize_csv_files()
 
 # --- API Endpoints ---
 
@@ -75,13 +64,12 @@ async def register_user(user_data: UserRegister):
     if not username or not password:
         raise HTTPException(status_code=400, detail='Tên người dùng và mật khẩu là bắt buộc.')
 
-    users_df = data.read_users()
-    if username.lower() in users_df['username'].str.lower().values:
+    # Check if username already exists in MongoDB
+    if data.find_user(username):
         raise HTTPException(status_code=409, detail='Tên người dùng đã tồn tại. Vui lòng chọn tên khác.')
 
-    new_user = pd.DataFrame([{'username': username, 'password': password}])
-    users_df = pd.concat([users_df, new_user], ignore_index=True)
-    data.write_users(users_df)
+    new_user_doc = {'username': username, 'password': password}
+    data.write_users(new_user_doc) # Insert new user into MongoDB
 
     return {'message': 'User registered successfully'}
 
@@ -93,10 +81,9 @@ async def login_user(user_data: UserLogin):
     if not username or not password:
         raise HTTPException(status_code=400, detail='Tên người dùng và mật khẩu là bắt buộc.')
 
-    users_df = data.read_users()
-    user = users_df[(users_df['username'].str.lower() == username.lower()) & (users_df['password'] == password)]
+    user = data.find_user(username)
 
-    if user.empty:
+    if not user or user['password'] != password:
         raise HTTPException(status_code=401, detail='Tên người dùng hoặc mật khẩu không hợp lệ.')
 
     return {'message': 'Login successful!'}
@@ -121,10 +108,10 @@ async def start_game_session(game_start_data: GameStart):
 
 @app.get('/questions')
 async def get_questions():
-    questions_df = data.read_questions()
-    if questions_df.empty:
+    questions = data.read_questions()
+    if not questions:
         raise HTTPException(status_code=404, detail='Không có câu hỏi nào có sẵn.')
-    return questions_df.to_dict(orient='records')
+    return questions
 
 @app.post('/leaderboard')
 async def update_leaderboard(entry: LeaderboardEntry):
@@ -140,11 +127,10 @@ async def update_leaderboard(entry: LeaderboardEntry):
 
 @app.get('/leaderboard')
 async def get_leaderboard():
-    leaderboard_df = data.read_leaderboard()
-    if leaderboard_df.empty:
+    leaderboard = data.read_leaderboard()
+    if not leaderboard:
         raise HTTPException(status_code=404, detail='Bảng xếp hạng đang trống.')
-    leaderboard_df = leaderboard_df.sort_values(by='score', ascending=False)
-    return leaderboard_df.to_dict(orient='records')
+    return leaderboard
 
 @app.post('/game/answer')
 async def submit_answer(answer_data: SubmitAnswer):
@@ -161,6 +147,9 @@ async def submit_answer(answer_data: SubmitAnswer):
 
     session = game_logic.active_game_sessions[username]
     current_question_from_session = session['questions'][session['current_index']]
+
+    print(f"Backend session question ID: {current_question_from_session['id']}")
+    print(f"Frontend submitted question ID: {question_id}")
 
     if current_question_from_session['id'] != question_id:
         raise HTTPException(status_code=400, detail='ID câu hỏi không khớp với phiên chơi hiện tại.')

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface Question {
-  id: number;
+  id: string; // Changed from number to string
   question: string;
   option_a: string;
   option_b: string;
@@ -75,7 +75,8 @@ const QuestionPage = () => {
         setCurrentQuestion(data.question);
         setMessage(''); // Clear loading message
       } else {
-        setMessage(data.detail || 'Không thể khởi tạo phiên chơi game.');
+        // Ensure message is a string. If data.detail is an object (e.g., Pydantic error), stringify it.
+        setMessage(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail || 'Không thể khởi tạo phiên chơi game.'));
         setGameOver(true); // End game if session cannot be initiated
       }
     } catch (error) {
@@ -117,11 +118,13 @@ const QuestionPage = () => {
         if (!data.game_over && data.next_question) {
           setCurrentQuestion(data.next_question);
           setSelectedAnswer(null); // Clear selected answer for next question
+          setMessage(''); // Clear the message for the next question
         } else if (data.game_over) {
           setCurrentQuestion(null); // Clear question when game is over
         }
       } else {
-        setMessage(data.detail || 'Gửi câu trả lời không thành công.');
+        // Ensure message is a string. If data.detail is an object, stringify it.
+        setMessage(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail || 'Gửi câu trả lời không thành công.'));
       }
     } catch (error) {
       console.error('Lỗi gửi câu trả lời:', error);
@@ -155,7 +158,8 @@ const QuestionPage = () => {
         setMessage('Lượt chơi đã kết thúc. Điểm của bạn đã được lưu.');
         setGameOver(true);
       } else {
-        setMessage(data.detail || 'Lưu điểm không thành công.');
+        // Ensure message is a string. If data.detail is an object, stringify it.
+        setMessage(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail || 'Lưu điểm không thành công.'));
       }
     } catch (error) {
       console.error('Lỗi kết thúc lượt chơi:', error);
